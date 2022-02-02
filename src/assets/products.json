@@ -1,0 +1,19 @@
+{
+    "products" : [
+        {
+          "product_name" : "Bread", "product_description" : "Whole wheat large size", "category" : "Grocery", "quantity" : "1", "isChecked" : true 
+        },
+        {
+          "product_name" : "Cheese", "product_description" : "pack of 10", "category" : "Grocery", "quantity" : "2", "isChecked" : false
+        },
+        {
+          "product_name" : "Butter", "product_description" : "Amul Butter", "category" : "Grocery", "quantity" : "1", "isChecked" : true 
+        },
+        {
+          "product_name" : "Apple", "product_description" : "Green and red apple", "category" : "Fruits", "quantity" : "1kg", "isChecked" : true 
+        },
+        {
+          "product_name" : "Banana", "product_description" : "Red variety", "category" : "Fruits", "quantity" : "12", "isChecked" : true 
+        } 
+    ]      
+}

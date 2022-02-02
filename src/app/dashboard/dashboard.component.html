@@ -1,0 +1,29 @@
+<div id="dashboard">
+    <div  id="header" class="text-white">
+      <div>Dashboard</div> 
+      <div>
+        <a id="add_button" href="" (click)="addShoppingList($event)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    
+    <app-add-list [hidden]="!addUser"></app-add-list>
+    <div class="card-deck container-fluid">
+
+        <div class="card mb-4" *ngFor="let shoppingList of shoppingLists">
+
+          <a (click)="goToShoppingList($event,shoppingList)" >
+        <!-- <a [routerLink]="['/shoppingList']" [state]="{ list_id: shoppingList.shopping_list_id, list_name: shoppingList.list_name, list_description: shoppingList.list_description }" > -->
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <h1 class="card-title">{{ shoppingList.list_name }}</h1>
+            <h4 class="card-text">{{ shoppingList.list_description }}</h4>
+          </div>
+          </a>
+          <div class="card-footer">
+            <button type="button" class="btn btn-dark"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Users</button>
+            <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete List</button>
+            <br>
+            <small class="text-muted">Last updated by {{ shoppingList.last_updated_by }} on {{ shoppingList.last_updated_dt }}</small>
+          </div>
+    </div>                    
+</div>

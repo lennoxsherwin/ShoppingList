@@ -1,0 +1,183 @@
+
+<div id="header" class="text-center">
+
+  <div class="dropdown">
+    <button class="dropbtn">
+      <h1 *ngIf="showAll == true" id="list_name">All Items <i class="fa fa-caret-down" aria-hidden="true"></i></h1>
+      <h1 *ngIf="showAll == false" id="list_name">Items In Cart <i class="fa fa-caret-down" aria-hidden="true"></i></h1>
+    </button>
+    <div class="dropdown-content">
+    <a (click)="showAllItems()"><mat-icon>store</mat-icon> All Items</a>
+    <a (click)="showCartItems()"><mat-icon>shopping_cart</mat-icon> Items In Cart</a>
+    </div>
+  </div>
+
+        
+</div>
+<div id="component">
+
+    <div id="button_div">
+        <button mat-button mat-raised-button color="primary" (click)="addItem()"><mat-icon>add_circle_outline</mat-icon> Add Item</button>
+        <button mat-button mat-raised-button color="warn"><mat-icon>delete</mat-icon> Delete Selected Records</button>
+    </div>
+
+    <div id="search_div">
+        <mat-form-field>
+            <mat-label>Search Here</mat-label>
+            <input matInput autocomplete="off" (keyup)="applyFilter($event)" placeholder="Search Here" #input>
+        </mat-form-field>
+    </div> 
+
+    <div class="example-container mat-elevation-z8">
+    <div id="" class="example-table-container">
+    <table mat-table [dataSource]="dataSource" #mytable matSort  matSortActive="category" matSortDirection="asc" matSortDisableClear>
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select" class="select_mobile">
+            <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+            <td mat-cell *matCellDef="let element" class="m-card-title category"> 
+              <!-- <div class="mobile_only bold">Category: </div>  -->
+              {{element.category}} 
+            </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="item_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element" class='m-card-title item_name'>{{element.item_name}} <div class="mobile_only"> - {{element.brand}}</div></td>
+        </ng-container>
+
+        <!-- Brand Column -->
+        <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef> Brand </th>
+            <td mat-cell *matCellDef="let element" class="m-card-title brand"> 
+              <div class="brand"> 
+                {{element.brand}}
+              </div> 
+            </td>
+        </ng-container>
+
+        <!-- Remark Column -->
+        <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef> Remarks </th>
+            <td mat-cell *matCellDef="let element" class="m-card-title remarks">
+              <div class="mobile_only bold">Remarks: </div> 
+              {{element.remarks}} 
+            </td>
+        </ng-container>
+
+        <!-- UOM Column -->
+        <ng-container matColumnDef="uom">
+            <th mat-header-cell *matHeaderCellDef> UOM </th>
+            <td mat-cell *matCellDef="let element" class="m-card-title uom">
+              <div class="mobile_only bold">UOM: </div> 
+              {{element.uom}}
+            </td>
+        </ng-container>
+
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Quantity </th>
+            <td mat-cell *matCellDef="let element" class="m-card-title quantity">
+              <div class="mobile_only bold">Quantity: </div>
+              {{element.quantity}}
+            </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element" class="m-card-title action">
+                 
+              <button class="status_button" *ngIf="element.itemNeeded == false" (click)="element.itemNeeded = true" mat-button mat-raised-button color="accent"><mat-icon>add_shopping_cart</mat-icon> Add To Cart</button> 
+              <button class="status_button" *ngIf="element.itemNeeded == true" (click)="element.itemNeeded = false" mat-button mat-raised-button color="warn">	<mat-icon>remove_shopping_cart</mat-icon> Remove From Cart</button> 
+            </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="'actions'">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="edit(element)">
+              <mat-icon mat-icon-button color='primary'>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete(element.item_id)">
+              <mat-icon mat-icon-button color="warn">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="star">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+        
+        <!-- Group header -->
+        <!--<ng-container matColumnDef="groupName">
+          <td colspan="999" mat-cell *matCellDef="let group">
+            {{group.category}}
+          </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: ['groupName']; when: isGroup"></tr>-->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        
+        
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            
+            [hidden]="showAll == false && row.itemNeeded == false">
+        </tr>
+
+
+        <div *ngIf="!dataSource.data.length">
+          No items in cart.
+        </div>
+
+    </table>
+
+
+    <!--<mat-paginator [pageSizeOptions]="[2, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="">
+  </mat-paginator>-->
+    </div>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>open_in_new</mat-icon>
+      <span>Open risk plan</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>undo</mat-icon>
+      <span>Reset questionnairre</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>delete</mat-icon>
+      <span>Delete questionnairre</span>
+    </button>
+  </mat-menu>
+
+  </div>
