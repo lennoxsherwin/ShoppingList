@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -11,13 +11,15 @@ export class LogInComponent implements OnInit {
 
   hide = true;
   
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthServiceService) {
+
+   }
 
   public loginForm!: FormGroup;
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       });
   }
@@ -29,4 +31,23 @@ export class LogInComponent implements OnInit {
     this.router.navigate(['/shoppingList']);
   }
 
+  checkDetails(){
+    if (!this.loginForm.valid) {
+      return;
+    }
+    const val = this.loginForm.value;
+
+    this.authService.login(val.email, val.password)
+      .subscribe(
+        (res) => {
+            if(Object.values(res)[0]){
+              this.router.navigate(['/shoppingList']);
+              sessionStorage.setItem("name", Object.values(res)[1]);
+            }
+            else{
+              alert('The Username or Password is Incorrect');
+            }
+        }
+      );            
+  }
 }

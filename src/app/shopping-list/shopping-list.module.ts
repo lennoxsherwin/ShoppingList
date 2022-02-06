@@ -13,10 +13,12 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ItemService } from '../services/item.service';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 import { ItemFormDialogComponent } from './item-form-dialog/item-form-dialog.component';
+import { ItemAddDialogComponent } from './item-add-dialog/item-add-dialog.component';
 @NgModule({
   declarations: [
     ShoppingListComponent,
     ItemFormDialogComponent,
+    ItemAddDialogComponent,
   ],
   imports: [
     CommonModule,

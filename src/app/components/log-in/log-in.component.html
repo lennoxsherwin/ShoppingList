@@ -6,7 +6,7 @@
 
   <section id="login">
 
-  <form [formGroup]="loginForm" novalidate fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <form [formGroup]="loginForm" novalidate (ngSubmit)="checkDetails()" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px" autocomplete="off">
     <div class="example-container">
         <div>
         <mat-form-field appearance="outline" [style.width.%]=100>
@@ -14,20 +14,23 @@
           <input matInput placeholder="pat@example.com" formControlName="email" required>
           <!-- <mat-hint>Enter your registered email id</mat-hint> -->
           <mat-error *ngIf="myError('email', 'required')">Email ID is required</mat-error>
+          <mat-error *ngIf="myError('email', 'email')">Not a valid Email</mat-error>
         </mat-form-field>
         </div>
 
         <div>
         <mat-form-field appearance="outline" [style.width.%]=100>
             <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
+            <mat-error *ngIf="myError('password', 'required')">Password is required</mat-error>
+            <mat-error *ngIf="myError('password', 'maxLength(20)')">Password cannot be more than 20 characters</mat-error>
           </mat-form-field>
         </div>
 
-        <button mat-raised-button [style.width.%]=100 (click)="goToDashboard()">Log In</button>
+        <button mat-raised-button [style.width.%]=100>Log In</button>
     </div>
     </form>
 

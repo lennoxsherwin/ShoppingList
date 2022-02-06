@@ -12,6 +12,8 @@
     </div>
   </div>
 
+  <div id="welcome"><h1>Welcome {{name}} </h1></div>
+
         
 </div>
 <div id="component">
@@ -33,7 +35,7 @@
     <table mat-table [dataSource]="dataSource" #mytable matSort  matSortActive="category" matSortDirection="asc" matSortDisableClear>
 
         <!-- Checkbox Column -->
-        <ng-container matColumnDef="select" class="select_mobile">
+        <!--<ng-container matColumnDef="select" class="select_mobile">
             <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="$event ? masterToggle() : null"
                             [checked]="selection.hasValue() && isAllSelected()"
@@ -48,7 +50,7 @@
                             [aria-label]="checkboxLabel(row)">
             </mat-checkbox>
             </td>
-        </ng-container>
+        </ng-container>-->
 
         <!-- Category Column -->
         <ng-container matColumnDef="category">
@@ -151,9 +153,9 @@
         </tr>
 
 
-        <div *ngIf="!dataSource.data.length">
-          No items in cart.
-        </div>
+        <!-- <div *ngIf="!dataSource.data.length"> -->
+          <!-- No items in cart. -->
+        <!-- </div> -->
 
     </table>
 

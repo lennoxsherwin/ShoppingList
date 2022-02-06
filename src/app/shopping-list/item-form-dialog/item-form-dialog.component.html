@@ -5,19 +5,15 @@
     
     <div class="mt-5">
 
-        <mat-form-field class="fullWidth" appearance="outline">
+        <mat-form-field class="fullWidth" appearance="outline" [style.width.%]=100>
           <mat-label>Cateogry</mat-label>
-          <mat-select name="category" formControlName="category">
-            <mat-option value="Software Developer">Dairy</mat-option>
-            <mat-option value="Physician">Fruits</mat-option>
-            <mat-option value="Dentist">Vegetables</mat-option>
-            <mat-option value="Nurse">Other</mat-option>
-          </mat-select>
-          <mat-error *ngIf="formInstance.controls['category']?.errors">field required
-          </mat-error>
+          <input matInput type="text" 
+          name="category" formControlName="category">
+          <!-- <mat-error *ngIf="formInstance.controls['category']?.errors">field required -->
+          <!-- </mat-error> -->
         </mat-form-field>
         &nbsp;
-        <button mat-button mat-raised-button color="warn" ><mat-icon>add_circle_outline</mat-icon> Add Category</button>
+        <!-- <button mat-button mat-raised-button color="warn" ><mat-icon>add_circle_outline</mat-icon> Add Category</button> -->
       </div>
 
     <div>
@@ -50,14 +46,14 @@
         <mat-form-field appearance="outline" [style.width.%]=100>
             <mat-label>UOM</mat-label>
             <mat-select name="uom" formControlName="uom">
-              <mat-option value="one">50 gm</mat-option>
-              <mat-option value="two">100 gm</mat-option>
-              <mat-option value="one">200 gm</mat-option>
-              <mat-option value="two">250 gm</mat-option>
-              <mat-option value="one">1/2 kg</mat-option>
-              <mat-option value="two">1 kg</mat-option>
-              <mat-option value="one">1/2 litre</mat-option>
-              <mat-option value="two">1 litre</mat-option>
+              <mat-option value="50 gm">50 gm</mat-option>
+              <mat-option value="100 gm">100 gm</mat-option>
+              <mat-option value="200 gm">200 gm</mat-option>
+              <mat-option value="250 gm">250 gm</mat-option>
+              <mat-option value="1/2 kg">1/2 kg</mat-option>
+              <mat-option value="1 kg">1 kg</mat-option>
+              <mat-option value="1/2 litre">1/2 litre</mat-option>
+              <mat-option value="1 litre">1 litre</mat-option>
               <mat-option value="nos">nos</mat-option>
             </mat-select>
           </mat-form-field>

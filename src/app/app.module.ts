@@ -16,6 +16,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { ObserversModule } from '@angular/cdk/observers';
+import { AuthServiceService } from './services/auth-service.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,9 +39,11 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     NgbModule,
     MatToolbarModule,
     MaterialExampleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ObserversModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

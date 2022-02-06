@@ -15,8 +15,8 @@ export class ItemFormDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ItemFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Item) {
     this.formInstance = new FormGroup({
-      "item_id":  new FormControl(''),
-      "category":  new FormControl('', Validators.required),
+      "_id":  new FormControl(''),
+      "category":  new FormControl(''),
       "item_name": new FormControl('', Validators.required),
       "brand": new FormControl(''),
       "remarks": new FormControl(''),

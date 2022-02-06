@@ -6,7 +6,7 @@
 
   <section id="login">
 
-  <form [formGroup]="myForm" novalidate fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <form [formGroup]="signupForm" (ngSubmit)="signUp()" novalidate fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px" autocomplete="off">
     <div class="example-container">
         
       <div>
@@ -14,7 +14,7 @@
           <mat-label>Enter your Name</mat-label>
           <input matInput placeholder="Enter your name" formControlName="name" required>
           <!-- <mat-hint>Enter your registered email id</mat-hint> -->
-          <!-- <mat-error *ngIf="myError('email', 'required')">Email ID is required</mat-error> -->
+          <mat-error *ngIf="myError('name', 'required')">Name is required</mat-error>
         </mat-form-field>
         </div>
 
@@ -24,30 +24,22 @@
           <input matInput placeholder="pat@example.com" formControlName="email" required>
           <!-- <mat-hint>Enter your registered email id</mat-hint> -->
           <mat-error *ngIf="myError('email', 'required')">Email ID is required</mat-error>
+          <mat-error *ngIf="myError('email', 'email')">Not a valid Email</mat-error>
         </mat-form-field>
         </div>
 
         <div>
         <mat-form-field appearance="outline" [style.width.%]=100>
             <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <mat-error *ngIf="myError('password', 'required')">Password is required</mat-error>
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
         </div>
 
-        <div>
-          <mat-form-field appearance="outline" [style.width.%]=100>
-              <mat-label>Confirm your password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-            </mat-form-field>
-          </div>
-
-        <button mat-raised-button [style.width.%]=100 (click)="goToDashboard()">Sign Up</button>
+        <button mat-raised-button [style.width.%]=100>Sign Up</button>
     </div>
     </form>
 
